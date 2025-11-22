@@ -3,9 +3,12 @@ import { ui } from "@/components/ui/index";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import type { UserRegister } from "@/types/auth.types";
+import { useRegister } from "@/hooks/useRegister";
 
 export default function RegisterPage() {
   const router = useRouter();
+
+  const { registerUser } = useRegister();
 
   const {
     register,
@@ -19,7 +22,8 @@ export default function RegisterPage() {
       role: "user",
     };
     console.log(userData);
-    router.push("/pages/login");
+    
+    registerUser(userData, router);
   };
 
   return (

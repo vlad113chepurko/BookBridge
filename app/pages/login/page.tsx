@@ -2,10 +2,13 @@
 import { ui } from "@/components/ui/index";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { useLogin } from "@/hooks/useLogin";
 import type { UserLogin } from "@/types/auth.types";
 
 export default function LoginPage() {
   const router = useRouter();
+
+  const { loginUser } = useLogin();
 
   const {
     register,
@@ -15,6 +18,8 @@ export default function LoginPage() {
 
   const onSubmit = async (data: UserLogin) => {
     console.log(data);
+
+    await loginUser(data, router);
   };
 
   return (
