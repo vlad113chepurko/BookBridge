@@ -13,6 +13,7 @@ export default function AddBookModal() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { isSubmitting },
   } = useForm<BookCreate>();
 
@@ -21,7 +22,7 @@ export default function AddBookModal() {
       console.log(data);
 
       const ownerId = localStorage.getItem("userId");
-      await axios.post("/api/books/me/addBook", {
+      await axios.post("/api/books/addBook", {
         ownerId,
         title: data.title,
         author: data.author,
@@ -29,6 +30,7 @@ export default function AddBookModal() {
 
       queryClient.invalidateQueries({ queryKey: ["me-books"] });
 
+      reset();
       close();
     } catch (error) {
       console.error("Error adding book:", error);

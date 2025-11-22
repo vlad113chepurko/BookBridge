@@ -8,4 +8,5 @@ export interface UserRegister {
 export interface UserLogin {
   email: string;
   password: string;
+  role?: string;
 }

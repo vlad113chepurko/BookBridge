@@ -1,5 +1,6 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import type { BookCreate } from "@/types/books.type";
 import { useAddBookModalStore } from "@/store/useAddBookModalStore";
 import { queryClient } from "@/lib/queryClient";
@@ -15,7 +16,7 @@ export default function MeBookgs() {
     if (!ownerId) {
       throw new Error("User not logged in");
     }
-    const res = await axios.get(`/api/books/me/getAll?ownerId=${ownerId}`);
+    const res = await axios.get(`/api/books/getAll?ownerId=${ownerId}`);
     return res.data;
   };
 
@@ -27,7 +28,7 @@ export default function MeBookgs() {
   });
   const removeBook = async (bookId: string) => {
     try {
-      await axios.delete(`/api/books/me/removeBook?bookId=${bookId}`);
+      await axios.delete(`/api/books/removeBook?bookId=${bookId}`);
       queryClient.invalidateQueries({ queryKey: ["me-books"] });
     } catch (err) {
       console.error("Failed to delete book:", err);
@@ -57,6 +58,11 @@ export default function MeBookgs() {
                   onClick={() => removeBook(book._id)}
                 >
                   Remove
+                </ui.Button>
+                <ui.Button>
+                  <Link className="w-full h-full" href={`/books/${book._id}`}>
+                    View Details
+                  </Link>
                 </ui.Button>
               </div>
             ))
