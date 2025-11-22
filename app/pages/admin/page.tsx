@@ -35,6 +35,7 @@ export default function AdminPage() {
             <p>User password: {user.password}</p>
             <p>User role: {user.role}</p>
             <p>User ID: {user._id}</p>
+            <br />
           </li>
         ))}
       </ul>

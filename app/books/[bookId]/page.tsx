@@ -8,7 +8,20 @@ export default function BookPage() {
   const params = useParams();
   const bookId = params?.bookId;
 
-  console.log(`BookID ${bookId}`);
+  const sendReq = async () => {
+    try {
+      const response = await axios.post("/api/requests/sendReq", {
+        bookId: bookId,
+        bookTitle: book.title,
+        bookAuthor: book.author,
+        requesterId: localStorage.getItem("userId"),
+      });
+      console.log(response);
+      alert("Request sent successfully");
+    } catch (error) {
+      alert("Failed to send request");
+    }
+  };
 
   const {
     data: book,
@@ -32,6 +45,13 @@ export default function BookPage() {
       <h1 className="text-3xl font-bold">{book.title}</h1>
       <p className="text-lg text-muted-foreground">Автор: {book.author}</p>
       <p>ID: {bookId}</p>
+      <ui.Button
+        disabled={localStorage.getItem("userId") === book.ownerId}
+        onClick={sendReq}
+        className="cursor-pointer"
+      >
+        Request this Book
+      </ui.Button>
     </div>
   );
 }

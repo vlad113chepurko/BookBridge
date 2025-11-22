@@ -1,28 +1,14 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useGetRole } from "@/hooks/useGetRole";
+import { useRole } from "@/store/useRole";
+import { useEffect } from "react";
 export default function DashboardPage() {
-  const [userRole, setUserRole] = useState(null);
+  const { fetchUserRole } = useGetRole();
+  const userRole = useRole((state) => state.role);
   useEffect(() => {
-    const fetchUserRole = async () => {
-      try {
-        const userId = localStorage.getItem("userId");
-        if (!userId) {
-          console.error("User ID not found in local storage");
-          return;
-        }
-        const response = await axios.get(
-          `/api/user/getUserRole?userId=${userId}`
-        );
-        console.log("User Role:", response.data.role);
-        setUserRole(response.data.role);
-      } catch (error) {
-        console.error("Error fetching user role:", error);
-      }
-    };
     fetchUserRole();
-  }, []);
+  }, [fetchUserRole]);
   return (
     <div className="main">
       <h1 className="text-[3rem] font-extrabold  dark:text-white ">
@@ -37,6 +23,12 @@ export default function DashboardPage() {
           className="text-xl text-blue-600 hover:underline"
         >
           View All Books
+        </Link>
+        <Link
+          href="/pages/requests"
+          className="text-xl text-blue-600 hover:underline"
+        >
+          View My Requests
         </Link>
         <Link
           hidden={userRole !== "admin"}

@@ -43,7 +43,7 @@ export default function MeBookgs() {
       {isLoading ? (
         <ui.Spinner className="size-6" />
       ) : (
-        <div className="flex flex-row flex-wrap gap-4 mt-6 justify-center ">
+        <div className="flex flex-col flex-wrap gap-4 mt-6 justify-center ">
           {data && data.length > 0 ? (
             data.map((book: BookCreate) => (
               <div key={book._id} className="book-item">
