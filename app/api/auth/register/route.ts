@@ -27,13 +27,14 @@ export async function POST(request: Request) {
       password: hashedPassword,
     };
 
-    await User.create(newUser);
+    const user = await User.create(newUser);
+
+    const userId = user._id.toString();
 
     return NextResponse.json(
-      { message: "User created successfully" },
+      { message: "User created successfully", userId },
       { status: 201 }
     );
-    
   } catch (err) {
     console.error("Error during user registration:", err);
     return NextResponse.json(
