@@ -28,9 +28,15 @@ export default function DashboardPage() {
       <h1 className="text-[3rem] font-extrabold  dark:text-white ">
         Dashboard
       </h1>
-      <div className="mt-10 flex flex-col gap-6 justify-center  text-center">
+      <div className="mt-10 flex flex-row gap-6 justify-center  text-center">
         <Link href="/books" className="text-xl text-blue-600 hover:underline">
           View My Books
+        </Link>
+        <Link
+          href="/books/all-books"
+          className="text-xl text-blue-600 hover:underline"
+        >
+          View All Books
         </Link>
         <Link
           hidden={userRole !== "admin"}
