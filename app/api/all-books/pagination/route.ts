@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     const filteredBooks = await Book.find({
       $or: [{ title: regex }, { author: regex }],
     })
-      .sort({ title: 1 })
+      .sort({ title: 1 }) 
       .skip(skip)
       .limit(limit);
 
